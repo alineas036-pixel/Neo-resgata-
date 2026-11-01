@@ -1,0 +1,203 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import styles from "./page.module.css";
+
+const menu = [
+  { label: "Início", href: "/", icon: "⌂", color: "#5BD8C0" },
+  { label: "Finanças", href: "/servicos/financeiro", icon: "◫", color: "#60A5FA" },
+  { label: "Dívidas", href: "/servicos/dividas", icon: "▤", color: "#FBBF24" },
+  { label: "Hábitos & Controle", href: "/servicos/habitos-controle", icon: "✳", color: "#F472B6" },
+  { label: "Planejamento", href: "/planejamento", icon: "◈", color: "#C084FC" },
+  { label: "Lembretes", href: "/lembretes", icon: "◷", color: "#FB923C" },
+  { label: "Demonstração", href: "/demonstracao", icon: "▷", color: "#38BDF8" },
+  { label: "Planos", href: "/pagamentos", icon: "◇", color: "#FACC15" },
+  { label: "Aplicativo", href: "/aplicativo", icon: "▣", color: "#5BD8C0" },
+  { label: "Suporte", href: "/suporte", icon: "?", color: "#FDA4AF" },
+];
+
+export default function HomePage() {
+  const [menuOpen, setMenuOpen] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  return (
+    <main className={`${styles.dashboardHome} ${menuOpen ? styles.menuExpanded : styles.menuCollapsed}`}>
+      <aside className={styles.sidePanel} aria-label="Menu principal">
+        <Link href="/" className={styles.sideBrand} aria-label="Resgata+ início">
+          <span className={styles.brandMark}>R+</span>
+          {menuOpen && <span className={styles.sideBrandName}>resgata<span>+</span></span>}
+        </Link>
+
+        <button
+          type="button"
+          className={styles.menuToggle}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? "Recolher menu" : "Expandir menu"}
+          aria-expanded={menuOpen}
+          title={menuOpen ? "Recolher menu" : "Expandir menu"}
+        >
+          <span>{menuOpen ? "‹" : "›"}</span>
+          {menuOpen && <span>Recolher menu</span>}
+        </button>
+
+        <div className={styles.sideCaption}>
+          {menuOpen ? "SEU ESPAÇO" : "MENU"}
+        </div>
+
+        <nav className={styles.sideNav} aria-label="Navegação principal">
+          {menu.map((item) => {
+            const isActive =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`${styles.sideNavLink} ${isActive ? styles.sideNavActive : ""}`}
+                title={item.label}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <span className={styles.sideNavIcon} style={{ color: item.color }} aria-hidden="true">{item.icon}</span>
+                {menuOpen && <span className={styles.sideNavLabel}>{item.label}</span>}
+                {menuOpen && isActive && <span className={styles.activeDot} />}
+              </Link>
+            );
+          })}
+        </nav>
+
+      </aside>
+
+      <div className={styles.homeMain}>
+        <header className={styles.homeTopbar}>
+          <span className={styles.topbarLabel}>RESGATA+ <span>/</span> INÍCIO</span>
+          <div className={styles.topbarActions}>
+            <Link href="/login" className={styles.topbarLogin}>Entrar</Link>
+            <Link href="/register" className={styles.topbarCta}>Começar agora <span>↗</span></Link>
+          </div>
+        </header>
+
+        <div className={styles.mobileMenuWrap}>
+          <button
+            type="button"
+            className={styles.mobileMenuToggle}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-home-nav"
+            aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+          >
+            <span aria-hidden="true">{mobileMenuOpen ? "✕" : "☰"}</span>
+            <span>{mobileMenuOpen ? "Fechar menu" : "Menu"}</span>
+            <span className={styles.mobileMenuChevron} aria-hidden="true">
+              {mobileMenuOpen ? "⌃" : "⌄"}
+            </span>
+          </button>
+
+          <nav
+            id="mobile-home-nav"
+            className={styles.mobileNav}
+            aria-label="Navegação principal para celular"
+            hidden={!mobileMenuOpen}
+          >
+            {menu.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`${styles.mobileNavLink} ${isActive ? styles.mobileNavActive : ""}`}
+                  aria-current={isActive ? "page" : undefined}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className={styles.mobileNavIcon} style={{ color: item.color }} aria-hidden="true">{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+
+        <section className={styles.centerStage}>
+          <div className={styles.centerGlow} aria-hidden="true" />
+          <div className={styles.centerContent}>
+            <h1>
+              Sua Vida Pode 
+              <br /> Avançar... 
+                 <br />
+              <span> Um Passo de Cada Vez.</span>
+            </h1>
+            <p className={styles.centerDescription}>
+              Cuide das suas finanças, acompanhe suas dívidas e desenvolva
+              hábitos melhores. Tenha mais clareza para tomar decisões e
+              avançar no seu ritmo.
+            </p>
+            
+            <div className={styles.centerFootnote}>
+              <span>✳</span> Finanças, Hábitos e Progresso — No Seu Ritmo.
+            </div>
+          </div>
+           </section>
+
+        <section className={styles.homeInfoSection} aria-label="Como o Resgata+ pode ajudar">
+          <div className={styles.homeInfoHeading}>
+            <span>SEU PRÓXIMO PASSO</span>
+            <h2>Mais clareza para cuidar do que importa.</h2>
+            <p>Escolha por onde começar. Cada pequena mudança conta.</p>
+          </div>
+
+          <div className={styles.homeInfoGrid}>
+            <article className={`${styles.homeInfoCard} ${styles.financeInfoCard}`}>
+              <div className={styles.homeInfoIcon} aria-hidden="true">↗</div>
+              <div className={styles.homeInfoCardContent}>
+                <span className={styles.homeInfoLabel}>VIDA FINANCEIRA</span>
+                <h3>Seu dinheiro, mais organizado.</h3>
+                <p>
+                  Visualize suas contas, acompanhe seus gastos e planeje seus
+                  próximos objetivos — com dívidas ou sem elas.
+                </p>
+                <div className={styles.homeInfoAction}>
+                  
+                  Mais clareza no dia a dia <span aria-hidden="true"></span>
+                </div>
+              </div>
+            </article>
+
+            <article className={`${styles.homeInfoCard} ${styles.habitsInfoCard}`}>
+              <div className={styles.homeInfoIcon} aria-hidden="true">✳</div>
+              <div className={styles.homeInfoCardContent}>
+                <span className={styles.homeInfoLabel}>HÁBITOS E PROGRESSO</span>
+                <h3>Pequenos passos. Novos hábitos.</h3>
+                <p>
+                  Acompanhe sua rotina, reconheça seus avanços e desenvolva
+                  hábitos mais conscientes, um dia de cada vez.
+                </p>
+                <div className={styles.homeInfoAction}>
+                  Seu progresso importa <span aria-hidden="true"></span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <footer className={styles.homeFooter}>
+          <span>Resgata+ © 2026</span>
+          <span>Organize suas dívidas. Recupere seu controle.</span>
+          <nav aria-label="Links úteis" style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>
+            <Link href="/ajuda">Ajuda</Link>
+            <Link href="/suporte">Suporte</Link>
+            <Link href="/seguranca">Segurança</Link>
+            <Link href="/pagamentos">Planos</Link>
+          </nav>
+        </footer>
+      </div>
+    </main>
+  );
+}

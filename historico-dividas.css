@@ -1,0 +1,33 @@
+/* Ajuste do histórico de dívidas */
+.historico-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.historico-container table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.historico-container th,
+.historico-container td {
+  padding: 6px 5px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .historico-container th,
+  .historico-container td {
+    padding: 5px 3px;
+    font-size: 12px;
+  }
+
+  .historico-container table {
+    width: max-content;
+    min-width: 100%;
+  }
+}
