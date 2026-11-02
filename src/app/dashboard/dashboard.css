@@ -1328,3 +1328,49 @@
   }
 }
 
+/* CORREÇÃO: organização do cabeçalho do dashboard */
+.dashboard-page .dash-welcome {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  width: 100%;
+  min-width: 0;
+}
+
+.dashboard-page .dash-welcome > * {
+  min-width: 0;
+}
+
+/* CORREÇÃO: valor do saldo sem corte em telas pequenas */
+.dashboard-page .dash-balance-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.dashboard-page .dash-balance-card strong {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: clamp(1.25rem, 6vw, 2rem);
+}
+
+/* CORREÇÃO: adaptação para tablets */
+@media (max-width: 900px) {
+  .dashboard-page .dash-welcome {
+    grid-template-columns: minmax(0, 1fr) 250px;
+    gap: 24px;
+  }
+}
+
+/* CORREÇÃO: adaptação para celulares */
+@media (max-width: 700px) {
+  .dashboard-page .dash-welcome {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .dashboard-page .dash-balance-card {
+    width: 100%;
+  }
+}
+
