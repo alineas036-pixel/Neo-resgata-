@@ -1249,3 +1249,82 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+
+
+
+/* =========================================
+   CORREÇÃO DO CARTÃO DE SALDO NO CELULAR
+========================================= */
+
+@media (max-width: 700px) {
+  .dashboard-page .dash-welcome {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .dashboard-page .dash-welcome-copy {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .dashboard-page .dash-balance-card {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    padding: 22px 18px;
+    overflow: hidden;
+  }
+
+  .dashboard-page .dash-balance-label {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .dashboard-page .dash-balance-card strong {
+    display: block;
+    width: 100%;
+    margin: 12px 0;
+    font-size: clamp(1.5rem, 7vw, 2.1rem);
+    line-height: 1.2;
+    letter-spacing: -1px;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dashboard-page .dash-balance-note {
+    display: block;
+    width: 100%;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .dashboard-page .dash-balance-link {
+    display: inline-block;
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 380px) {
+  .dashboard-page .dash-balance-card {
+    padding: 19px 14px;
+  }
+
+  .dashboard-page .dash-balance-card strong {
+    font-size: clamp(1.35rem, 6.8vw, 1.7rem);
+    letter-spacing: -0.8px;
+  }
+}
+
